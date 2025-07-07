@@ -61,7 +61,7 @@
           global_stream_data += chunk
           global_stream_count += 1
         end
-        global_stream_data_size = global_stream_data.size.to_s(:human_size)
+        global_stream_data_size = global_stream_data.size.to_fs(:human_size)
 
         action_stream = workato.stream.out('action_stream', input)
         action_stream_data = ''
@@ -70,28 +70,28 @@
           action_stream_data += chunk
           action_stream_count += 1
         end
-        action_stream_data_size = action_stream_data.size.to_s(:human_size)
+        action_stream_data_size = action_stream_data.size.to_fs(:human_size)
 
         method_stream_data, method_stream_count = call(:with_stream_in_out, input)
-        method_stream_data_size = method_stream_data.size.to_s(:human_size)
+        method_stream_data_size = method_stream_data.size.to_fs(:human_size)
 
         mock_simple_stream_data, mock_simple_stream_count = call(:with_stream_in, input[:mock_simple_stream], from: 4)
-        mock_simple_stream_data_size = mock_simple_stream_data.size.to_s(:human_size)
+        mock_simple_stream_data_size = mock_simple_stream_data.size.to_fs(:human_size)
         mock_simple_stream_summary = "Downloaded #{mock_simple_stream_data_size} in #{mock_simple_stream_count} batches"
 
         mock_adv_stream_data, mock_adv_stream_count = call(:with_stream_in, input[:mock_advanced_stream])
-        mock_adv_stream_data_size = mock_adv_stream_data.size.to_s(:human_size)
+        mock_adv_stream_data_size = mock_adv_stream_data.size.to_fs(:human_size)
         mock_adv_stream_summary = "Downloaded #{mock_adv_stream_data_size} in #{mock_adv_stream_count} batches"
 
         mock_self_stream_data, mock_self_stream_count = call(:with_stream_in, input[:mock_self_stream])
-        mock_self_stream_data_size = mock_self_stream_data.size.to_s(:human_size)
+        mock_self_stream_data_size = mock_self_stream_data.size.to_fs(:human_size)
         mock_self_stream_summary = "Downloaded #{mock_self_stream_data_size} in #{mock_self_stream_count} batches"
 
         static_stream_data, static_stream_count = call(:with_stream_in, input[:static_stream], from: 5, frame_size: 3)
-        static_stream_data_size = static_stream_data.size.to_s(:human_size)
+        static_stream_data_size = static_stream_data.size.to_fs(:human_size)
 
         string_data, string_data_count = call(:with_stream_in, input[:string], from: 6, frame_size: 2)
-        string_data_size = string_data.size.to_s(:human_size)
+        string_data_size = string_data.size.to_fs(:human_size)
 
         {
           global_stream: global_stream,
@@ -145,7 +145,7 @@
         end
 
         {
-          summary: "Downloaded #{data.size.to_s(:human_size)} in #{count} batches"
+          summary: "Downloaded #{data.size.to_fs(:human_size)} in #{count} batches"
         }
       end
     }
