@@ -25,14 +25,6 @@ module Workato
 
           abstract!
 
-          # @api private
-          sig { abstract.returns(Streams) }
-          def streams; end
-
-          # @api private
-          sig { abstract.returns(Connection) }
-          def connection; end
-
           include Time
           include AccountProperty
           include LookupTable
@@ -88,6 +80,16 @@ module Workato
           def null; end
 
           def skip; end
+
+          private
+
+          # @api private
+          sig { abstract.returns(Streams) }
+          def streams; end
+
+          # @api private
+          sig { abstract.returns(Connection) }
+          def connection; end
         end
 
         class WithDsl

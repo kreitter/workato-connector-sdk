@@ -1,3 +1,9 @@
+# 1.3.16 - Fix method visibility
+
+## Bugfixes
+
+- Fix "Incompatible visibility" error for implementation of method connection
+
 # 1.3.15 - Prepare nokogiri for upgrade to 1.18.x
 
 ## Misc
