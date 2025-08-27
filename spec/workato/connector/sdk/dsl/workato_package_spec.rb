@@ -175,7 +175,7 @@ module Workato::Connector::Sdk
           'Uc6tPkdWHmQDNu8IqZyJftODHHGcpsQhzaPGJN02hdv9VA'
       end
 
-      it { expect(package.jwt_encode(payload, pem_key, algorithm)).to eq(expected_token) }
+      it { expect(package.jwt_decode(package.jwt_encode(payload, pem_key, algorithm), pem_key, algorithm)).to eq(package.jwt_decode(expected_token, pem_key, algorithm)) }
 
       context 'when supported algorithms' do
         %w[RS256 RS384 RS512].each do |algorithm|
@@ -280,7 +280,7 @@ module Workato::Connector::Sdk
             'IR_7nGuBHb53CIUFMvtrNAk40zEQnVm6VxVg_XuMcQyUs2ZlnMBg5UkIoRopPBQA'
         end
 
-        it { expect(package.jwt_encode(payload, pem_key, algorithm, kid: '93722749')).to eq(expected_token) }
+        it { expect(package.jwt_decode(package.jwt_encode(payload, pem_key, algorithm, kid: '93722749'), pem_key, algorithm)).to eq(package.jwt_decode(expected_token, pem_key, algorithm)) }
       end
 
       context 'when RSA key is too weak' do

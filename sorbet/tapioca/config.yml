@@ -1,13 +1,94 @@
 gem:
-  # Add your `gem` command parameters here:
-  #
-  # exclude:
-  # - gem_name
-  # doc: true
-  # workers: 5
+  exclude:
+    #- activesupport
+    - addressable
+    - ast
+    - aws-eventstream
+    #- aws-sigv4
+    - base64
+    - bigdecimal
+    - builder
+    - byebug
+    #- charlock_holmes
+    #- concurrent-ruby
+    - cookiejar
+    - crack
+    - crass
+    - diff-lcs
+    - docile
+    - domain_name
+    - em-http-request
+    - em-socksify
+    - eventmachine
+    #- gyoku
+    - hashdiff
+    - http-accept
+    - http-cookie
+    - http_parser.rb
+    #- i18n
+    - json
+    #- jwt
+    - language_server-protocol
+    #- launchy
+    - lint_roller
+    - logger
+    #- loofah
+    - mime-types
+    - mime-types-data
+    #- minitest
+    - net-http-digest_auth
+    - netrc
+    #- nokogiri
+    - parallel
+    - parser
+    - prism
+    - public_suffix
+    - racc
+    #- rack
+    #- rails-html-sanitizer
+    - rainbow
+    - rbi
+    - regexp_parser
+    #- rest-client
+    - rexml
+    - rspec
+    - rspec-core
+    - rspec-expectations
+    - rspec-mocks
+    - rspec-support
+    - rubocop
+    - rubocop-ast
+    - rubocop-rspec
+    - rubocop-sorbet
+    #- ruby-progressbar
+    #- ruby_rncryptor
+    #- rubyzip
+    - simplecov
+    - simplecov-html
+    - simplecov-json
+    - simplecov_json_formatter
+    - sorbet
+    - sorbet-runtime
+    - sorbet-static
+    - sorbet-static-and-runtime
+    - spoom
+    - stub_server
+    - tapioca
+    #- thor
+    - timecop
+    #- tzinfo
+    - unicode-display_width
+    - unicode-emoji
+    - unparser
+    - vcr
+    - webmock
+    - webrick
+    #- workato-connector-sdk
+    - yard
+    - yard-sorbet
 dsl:
-  # Add your `dsl` command parameters here:
-  #
-  # exclude:
-  # - SomeGeneratorName
-  # workers: 5
+# Add your `dsl` command parameters here:
+#
+# exclude:
+#- SomeGeneratorName
+# workers: 5

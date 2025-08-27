@@ -1007,7 +1007,7 @@ class RestClient::Request
   #
   # @return [Hash<Symbol, String>]
   #
-  # source://workato-connector-sdk/1.3.14/lib/workato/extension/content_encoding_decoder.rb#57
+  # source://workato-connector-sdk/1.3.15/lib/workato/extension/content_encoding_decoder.rb#57
   def default_headers; end
 
   # source://rest-client//lib/restclient/request.rb#160
@@ -1592,7 +1592,7 @@ class RestClient::Response < ::String
     # @param request [RestClient::Request]
     # @param start_time [Time]
     #
-    # source://workato-connector-sdk/1.3.14/lib/workato/extension/content_encoding_decoder.rb#11
+    # source://workato-connector-sdk/1.3.15/lib/workato/extension/content_encoding_decoder.rb#11
     def create(body, net_http_res, request, start_time); end
 
     # Set the String encoding according to the 'Content-Type: charset' header,

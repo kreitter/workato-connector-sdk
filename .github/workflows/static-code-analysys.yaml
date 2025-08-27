@@ -29,5 +29,8 @@ jobs:
           fail_on_error: true
           filter_mode: nofilter
 
+      - name: Run Tapioca
+        run: bundle exec tapioca gems
+
       - name: Run Sorbet
         run: bundle exec srb tc
