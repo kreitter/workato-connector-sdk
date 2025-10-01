@@ -1,3 +1,15 @@
+# Unreleased
+
+## Features
+
+- Add `workato validate` command for connector code validation
+  - 8 validators covering 25+ validation rules (syntax, structure, connections, references, signatures, fields, deprecations, anti-patterns)
+  - Human-readable output with colored formatting and actionable fix suggestions
+  - JSON output support for CI/CD integration
+  - Exit codes: 0 (pass), 1 (errors), 2 (warnings only)
+  - Verbose mode showing all checks performed
+  - Comprehensive error reporting with file/line numbers
+
 # 1.3.16 - Fix method visibility
 
 ## Bugfixes
