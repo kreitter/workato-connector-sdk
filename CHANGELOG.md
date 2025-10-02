@@ -1,3 +1,9 @@
+# 1.3.17 - Fix ignore_redirection for HTTP 303 responses
+
+## Bugfixes
+
+- Fix `ignore_redirection` logic to correctly prevent following redirects for HTTP 303 responses.
+
 # 1.3.16 - Fix method visibility
 
 ## Bugfixes
