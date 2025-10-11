@@ -71,7 +71,8 @@
       "Bash(PUSH_TEST_ANALYSIS.md )",
       "Bash(push-to-fork.sh )",
       "Bash(verify-cleanup.sh:*)",
-      "Bash(.github/copilot-instructions.md)"
+      "Bash(.github/copilot-instructions.md)",
+      "Bash(gh pr create:*)"
     ],
     "deny": [],
     "ask": []
