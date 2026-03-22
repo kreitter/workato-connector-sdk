@@ -50,7 +50,7 @@ module Workato
             if trigger[:poll].is_a?(Proc)
               param_count = trigger[:poll].arity
 
-              if param_count < 2 && param_count != -1
+              if param_count < 3 && param_count != -1
                 findings << report_finding(
                   rule_name: 'invalid_poll_signature',
                   severity: :error,

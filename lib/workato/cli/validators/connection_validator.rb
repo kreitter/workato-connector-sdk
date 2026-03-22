@@ -21,6 +21,10 @@ module Workato
           'custom_auth' => {
             required: %i[apply],
             optional: []
+          },
+          'multi' => {
+            required: %i[selected options],
+            optional: []
           }
         }.freeze
 
@@ -70,6 +74,10 @@ module Workato
             'Add apply: lambda { |connection| ... } to authorization block'
           when :refresh
             'Add refresh: lambda { |connection, refresh_token| ... } to authorization block'
+          when :selected
+            "Add selected: lambda { |connection| connection['auth_type'] } to authorization block"
+          when :options
+            "Add options: { option_name: { type: '...', ... } } to authorization block"
           else
             "Add #{key}: ... to authorization block"
           end
