@@ -334,7 +334,7 @@ module Workato
           else
             request.execute do |res|
               case res.code
-              when 301, 302, 307, 308
+              when 301, 302, 303, 307, 308
                 if @follow_redirection
                   res.follow_redirection
                 else
