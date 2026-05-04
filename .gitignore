@@ -20,3 +20,8 @@
 Gemfile.lock
 
 gemfiles/Gemfile.current.lock
+.DS_Store
+
+/vendor/
+
+.claude/settings.local.json

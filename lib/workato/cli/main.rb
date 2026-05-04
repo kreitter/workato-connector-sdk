@@ -9,6 +9,7 @@ require_relative 'schema_command'
 require_relative 'generate_command'
 require_relative 'push_command'
 require_relative 'oauth2_command'
+require_relative 'validate_command'
 require_relative 'generators/connector_generator'
 require_relative 'generators/master_key_generator'
 
@@ -85,6 +86,55 @@ module Workato
           path: path,
           options: options
         ).call
+      end
+
+      desc 'validate', 'Validates connector code for structural errors and DSL violations'
+      long_desc <<~HELP
+        Validates connector code for structural errors, missing required sections,
+        invalid syntax, and DSL convention violations before deployment.
+
+        The validate command checks your connector.rb file against 25+ validation
+        rules including:
+        - Required sections (title, connection, test)
+        - Connection authorization configuration
+        - Ruby syntax validity
+        - Object definition and pick list references
+        - Lambda block signatures for actions/triggers
+        - Field type definitions
+        - Deprecated DSL patterns
+        - Security anti-patterns
+
+        Exit codes:
+          0 - Validation passed (no errors or warnings)
+          1 - Validation failed (errors found)
+          2 - Validation passed with warnings
+
+        Examples:
+          $ workato validate
+          # Validate default connector.rb
+
+          $ workato validate --connector=custom_connector.rb
+          # Validate specific connector file
+
+          $ workato validate --output=report.json
+          # Output JSON report for CI/CD
+
+          $ workato validate --verbose
+          # Show all checks, not just failures
+      HELP
+
+      method_option :connector, type: :string, aliases: '-c',
+                                default: 'connector.rb',
+                                desc: 'Path to connector source code'
+      method_option :output, type: :string, aliases: '-o',
+                             desc: 'Write JSON validation report to file'
+      method_option :verbose, type: :boolean, aliases: '-v',
+                              default: false,
+                              desc: 'Show all checks performed, not just failures'
+
+      def validate
+        exit_code = ValidateCommand.new(options).call
+        exit(exit_code) unless exit_code.zero?
       end
 
       def self.exit_on_failure?

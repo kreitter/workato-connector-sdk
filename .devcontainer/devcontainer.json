@@ -1,0 +1,45 @@
+{
+  "name": "Workato Connector SDK",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rebornix.ruby",
+        "castwide.solargraph",
+        "kaiwood.endwise",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  },
+
+  "postCreateCommand": "bundle install && mkdir -p ~/.ssh && chmod 700 ~/.ssh",
+
+  "postAttachCommand": ".devcontainer/sync-claude-context.sh",
+
+  "postStartCommand": "echo '#!/bin/bash\nwhile true; do sleep 300; /workspaces/workato-connector-sdk/.devcontainer/sync-back-to-host.sh >/dev/null 2>&1; done' > /tmp/claude-sync-daemon.sh && chmod +x /tmp/claude-sync-daemon.sh && nohup /tmp/claude-sync-daemon.sh &",
+
+  "mounts": [
+    "source=/Users/dave/.claude,target=/Users/dave/.claude,type=bind",
+    "source=/Users/dave/.gitconfig,target=/home/vscode/.gitconfig,type=bind,readonly"
+  ],
+
+  "containerEnv": {
+    "SSH_AUTH_SOCK": "${localEnv:SSH_AUTH_SOCK}"
+  },
+
+  "remoteUser": "vscode"
+}

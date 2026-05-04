@@ -42,12 +42,13 @@ Commands:
   workato new <CONNECTOR_PATH>   # Inits new connector folder
   workato oauth2                 # Implements OAuth Authorization Code flow
   workato push                   # Upload and release connector's code
+  workato validate               # Validate connector code for errors and best practices
 
 Options:
-  [--verbose], [--no-verbose]  
+  [--verbose], [--no-verbose]
 ```
 
-> *Quick Tip*: Typing the `workato` command allows you to know what commands are possible during development. Find out more about individual keys using `workato help edit` etc.
+> *Quick Tip*: Typing the `workato` command allows you to know what commands are possible during development. Find out more about individual keys using `workato help edit`, `workato help validate`, etc.
 
 You may also know the exact location of the Workato Gem using `gem which`
 
@@ -228,9 +229,10 @@ Commands:
   workato new <CONNECTOR_PATH>   # Inits new connector folder
   workato oauth2                 # Implements OAuth Authorization Code flow
   workato push                   # Upload and release connector's code
+  workato validate               # Validate connector code for errors and best practices
 
 Options:
-  [--verbose], [--no-verbose]  
+  [--verbose], [--no-verbose]
 ```
 
 You may also gain more info about a specific command via `workato help [command]`
@@ -314,7 +316,109 @@ Some other things of note:
 2. `--input` allows you to reference a file which is the json input to your execute block
 3. `--output` allows you to write or overwrite the output of a specific CLI utility.
 
-### 3.4 workato generate
+### 3.4 workato validate
+```
+workato help validate
+
+Usage:
+  workato validate
+
+Options:
+  -c, [--connector=CONNECTOR]  # Path to connector source code (default: connector.rb)
+  -o, [--output=OUTPUT]        # Write JSON report to file
+  -v, [--verbose]              # Show all checks performed
+      [--help]                 # Show this help
+
+Validate connector code for errors and best practices
+```
+
+The `workato validate` command checks your connector code for common errors, structural issues, and deprecated patterns. It helps catch problems early before pushing to Workato.
+
+**Exit Codes:**
+- `0` - Validation passed (no errors or warnings)
+- `1` - Validation failed (errors found)
+- `2` - Validation passed with warnings only
+
+**What Gets Validated:**
+
+The validator runs 8 different checks:
+
+1. **Syntax Validation** - Checks for Ruby syntax errors
+2. **Structure Validation** - Ensures required sections exist (title, connection, test)
+3. **Connection Validation** - Validates authentication configuration
+4. **Reference Validation** - Checks that object_definitions and pick_lists are properly referenced
+5. **Signature Validation** - Validates lambda signatures and parameters
+6. **Field Validation** - Ensures field types and structures are correct
+7. **Deprecation Validation** - Detects deprecated DSL patterns (e.g., `after_error_response`)
+8. **Anti-Pattern Validation** - Identifies security issues and code smells
+
+**Examples:**
+
+Validate default connector.rb:
+```bash
+workato validate
+```
+
+Validate specific connector:
+```bash
+workato validate --connector=path/to/my_connector.rb
+```
+
+Generate JSON report for CI/CD:
+```bash
+workato validate --output=validation_report.json
+```
+
+Verbose output showing all checks:
+```bash
+workato validate --verbose
+```
+
+**Sample Output:**
+
+Valid connector:
+```
+✓ Connector validation passed
+Duration: 0.1s
+```
+
+Connector with errors:
+```
+❌ ERROR (line 15): Missing required section: test
+   → Add test: lambda { |connection| ... } to connector definition
+
+Validation failed: 1 error
+```
+
+Connector with warnings:
+```
+⚠️  WARNING (file-level): Use of deprecated method after_error_response
+   → after_error_response is deprecated. Use error_handler instead.
+
+Validation passed with warnings: 1 warning
+```
+
+**JSON Output Format:**
+
+When using `--output`, the validator generates a structured JSON report:
+```json
+{
+  "connector_path": "/path/to/connector.rb",
+  "validated_at": "2025-09-30T11:21:06-07:00",
+  "status": "pass",
+  "duration_ms": 0,
+  "summary": {
+    "error_count": 0,
+    "warning_count": 0,
+    "info_count": 0
+  },
+  "findings": []
+}
+```
+
+This format is ideal for CI/CD integration where you need to parse validation results programmatically.
+
+### 3.5 workato generate
 ```
 workato help generate
 
